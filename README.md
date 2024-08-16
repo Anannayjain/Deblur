@@ -31,6 +31,7 @@ class SimpleAE(nn.Module):
         x = self.encoder(x)
         x = self.decoder(x)
         return x
+```
 
 ### Training Details
 The model was trained with the following configurations:
@@ -40,5 +41,21 @@ Optimizer: Adam with a learning rate of 1e-3
 Scheduler: ReduceLROnPlateau
 Epochs: 50
 Device: CPU
+
+### Code for Adding Noise
+
+```python
+for i, img in tqdm(enumerate(images), total=len(images)):
+    img = cv2.imread(f"{src_dir}/{images[i]}")
+    # add gaussian blurring
+    blur = cv2.GaussianBlur(img, (11,11), 1.6)
+    cv2.imwrite(f"{dst_dir}/{images[i]}", blur)
+print('DONE')
+```
+## Training Curve
+
+![image](https://github.com/user-attachments/assets/6437cbd7-9170-435d-8134-28ea2748052d)
+
+
 
 
